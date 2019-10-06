@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/create_nav_graph"
+    app:startDestination="@id/createContactFragment"
+    tools:context=".ui.ui.createcontact.CreateContactActivity">
+
+    <fragment
+        android:id="@+id/createContactFragment"
+        android:name="io.github.hunachi.homechecklistapp.ui.ui.createcontact.CreateContactFragment"
+        android:label="CreateContactFragment" >
+    </fragment>
+</navigation>

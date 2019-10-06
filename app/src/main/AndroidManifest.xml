@@ -2,20 +2,35 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="io.github.hunachi.homechecklistapp">
 
+    <!--Userの許可が必要なものをここに書いていきます-->
+    <!--これを書いていたからといって許可を求めるダイアログが
+    表示されるわけではないですが、接待に書かなくてはいけないものです。-->
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
+        android:name=".ui.MyApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <!--applicationでandroid:name="MyApp"のように設定することで自作の
+        Applicationクラスを使うことができるようになります。-->
+        <!--こ子で宣言されていないActivityは使うことができません。基本
+        自動で追加してもらえるのですが、一応確認するようにしましょう。-->
+        <activity android:name="io.github.hunachi.homechecklistapp.ui.ui.login.LoginActivity">
+
+        </activity>
+        <activity android:name="io.github.hunachi.homechecklistapp.ui.ui.main.MainActivity">
             <intent-filter>
+                <!--このactionを設定しているActivityから起動します。-->
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="io.github.hunachi.homechecklistapp.ui.ui.createcontact.CreateContactActivity" />
     </application>
 
 </manifest>

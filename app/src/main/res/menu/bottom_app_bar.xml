@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/homeFragment"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="home"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/contactFragment"
+        android:icon="@drawable/ic_message_black_24dp"
+        android:title="contact"
+        app:showAsAction="ifRoom" />
+</menu>
