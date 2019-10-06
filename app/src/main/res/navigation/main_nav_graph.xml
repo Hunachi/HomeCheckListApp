@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="io.github.hunachi.homechecklistapp.ui.ui.main.HomeFragment"
+        android:label="ホーム"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_homeFragment_to_contactFragment"
+            app:destination="@id/contactFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_loginActivity"
+            app:destination="@id/loginActivity" />
+        <argument
+            android:name="user"
+            app:argType="io.github.hunachi.homechecklistapp.ui.data.User" />
+    </fragment>
+    <fragment
+        android:id="@+id/contactFragment"
+        android:name="io.github.hunachi.homechecklistapp.ui.ui.main.ContactListFragment"
+        android:label="お知らせ画面"
+        tools:layout="@layout/fragment_contact_list">
+        <action
+            android:id="@+id/action_contactFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <activity
+        android:id="@+id/loginActivity"
+        android:name="io.github.hunachi.homechecklistapp.ui.ui.login.LoginActivity"
+        android:label="LoginActivity" />
+</navigation>
