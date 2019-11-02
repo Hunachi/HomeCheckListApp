@@ -26,6 +26,8 @@ class CreateContactFragment : Fragment() {
 
     private lateinit var user: User
 
+    private lateinit var registerButton: Button
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -40,11 +42,11 @@ class CreateContactFragment : Fragment() {
                 list.adapter = adapter
                 list.layoutManager = LinearLayoutManager(context)
             }
-            findViewById<Button>(R.id.btn_register).let {
-                if (memo.text.isNullOrEmpty()) activity?.toast("入力してください。")
-                else viewModel.sendContact(
-                    user, memo.text.toString()
-                )
+            registerButton = findViewById<Button>(R.id.btn_register).also {
+                it.setOnClickListener {
+                    if (memo.text.isNullOrEmpty()) activity?.toast("入力してください。")
+                    else viewModel.sendContact(user, memo.text.toString())
+                }
             }
         }
     }
@@ -72,6 +74,9 @@ class CreateContactFragment : Fragment() {
         viewModel.successSend.nonNullObserver(this) {
             activity?.toast("成功しました。")
             activity?.finish()
+        }
+        viewModel.spinner.nonNullObserver(this){
+            registerButton.isEnabled = !it
         }
         viewModel.refreshList()
     }

@@ -1,5 +1,6 @@
 package io.github.hunachi.homechecklistapp.ui.ui.createcontact
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -75,8 +76,9 @@ class CreateContactViewModel : ViewModel() {
         )
         try {
             launchDataLoad(modifiableSpinner){
-                val contactData = contactUseCase.sendContact(contactData)
-                modifiableSuccessSend.value = contactData
+                Log.d("piyo", "hoge")
+                val data = contactUseCase.sendContact(contactData)
+                modifiableSuccessSend.value = data
             }
         }catch (e: Exception){
             modifiableError.value = e
