@@ -1,6 +1,5 @@
 package io.github.hunachi.homechecklistapp.ui.ui.main
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -51,14 +50,18 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         }
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
         preference = MyPreference(activity!!.application)
         homeViewModel = ViewModelProviders
             .of(activity!!)[HomeViewModel::class.java]
         setupViewModel()
         homeViewModel.refreshChecklist()
         homeViewModel.refreshUsersList()
+
+        if(preference.id().isNullOrEmpty()){
+            findNavController().navigate(R.id.action_homeFragment_to_loginActivity)
+        }
     }
 
     private fun setupViewModel(){
@@ -72,13 +75,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
         homeViewModel.spinner.nonNullObserver(this){
             swipeRefreshLayout.isRefreshing = it
-        }
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        if(preference.id().isNullOrEmpty()){
-            findNavController().navigate(R.id.action_homeFragment_to_loginActivity)
         }
     }
 }

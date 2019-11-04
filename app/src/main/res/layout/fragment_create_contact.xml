@@ -59,7 +59,8 @@
             android:inputType="textPersonName"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_memo" />
+            app:layout_constraintTop_toBottomOf="@+id/text_memo"
+            android:autofillHints="" />
 
         <Button
             android:id="@+id/btn_register"
@@ -68,8 +69,8 @@
             android:layout_marginTop="32dp"
             android:background="@drawable/button_background"
             android:padding="16dp"
+            android:inputType="textMultiLine"
             android:text="伝える"
-            android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/memo" />

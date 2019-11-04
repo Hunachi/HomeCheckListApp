@@ -1,6 +1,5 @@
 package io.github.hunachi.homechecklistapp.ui.ui.main
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import io.github.hunachi.homechecklistapp.R
 import io.github.hunachi.homechecklistapp.ui.data.ContactData
 import io.github.hunachi.homechecklistapp.ui.data.ContactItem
@@ -25,6 +25,8 @@ class ContactListFragment : Fragment(R.layout.fragment_contact_list) {
 
     private lateinit var contactViewModel: ContactViewModel
 
+    private lateinit var swipeRefreshLayout: SwipeRefreshLayout
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -37,10 +39,16 @@ class ContactListFragment : Fragment(R.layout.fragment_contact_list) {
             list.adapter = adapter
             list.layoutManager = LinearLayoutManager(context)
         }
+
+        swipeRefreshLayout = findViewById<SwipeRefreshLayout>(R.id.layout_swipe).also {
+            it.setOnRefreshListener {
+                contactViewModel.refreshContactList()
+            }
+        }
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
         contactViewModel = ViewModelProviders
             .of(activity!!).get(ContactViewModel::class.java)
         setupViewModel()
@@ -55,6 +63,10 @@ class ContactListFragment : Fragment(R.layout.fragment_contact_list) {
 
         contactViewModel.error.nonNullObserver(this) {
             activity?.toast("エラーです！")
+        }
+
+        contactViewModel.spinner.nonNullObserver(this){
+            swipeRefreshLayout.isRefreshing = it
         }
     }
 

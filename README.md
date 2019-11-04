@@ -4,3 +4,13 @@
 
 〜追記〜
 
+`CheckListRepository`と`CheckListUseCas`eを可読性の観点から`CheckRepository`と`CheckUseCase`に変更しました。
+
+
+誤植、誤ったコードについて
+
+ViewModelのインスタンスはonActivityCreatedで作るようにしてください。
+一部のコード、本内での説明でonAttachでインスタンスを作っていますが、それは間違えです。
+
+
+申し訳ありません。

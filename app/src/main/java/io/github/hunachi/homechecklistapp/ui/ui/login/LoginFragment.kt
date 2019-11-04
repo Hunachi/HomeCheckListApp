@@ -16,14 +16,13 @@ import io.github.hunachi.homechecklistapp.ui.MyPreference
 import io.github.hunachi.homechecklistapp.ui.data.User
 import io.github.hunachi.homechecklistapp.ui.nonNullObserver
 import io.github.hunachi.homechecklistapp.ui.toast
-import org.koin.android.ext.android.inject
 
 /**
  * Fragment for login.
  */
 class LoginFragment : Fragment(R.layout.fragment_login) {
 
-    private val preference: MyPreference by inject()
+    private lateinit var preference: MyPreference
 
     private lateinit var loginViewModel: LoginViewModel
 
@@ -56,6 +55,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        preference = MyPreference(activity!!.application)
         setupViewModel()
     }
 

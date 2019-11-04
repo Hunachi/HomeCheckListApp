@@ -1,6 +1,5 @@
 package io.github.hunachi.homechecklistapp.ui.ui.createcontact
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -54,18 +53,6 @@ class CreateContactFragment : Fragment() {
         }
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        viewModel = ViewModelProviders
-            .of(activity!!)[CreateContactViewModel::class.java]
-
-        val preference = MyPreference(activity!!)
-        user = preference.user()
-
-        setupViewModel()
-        viewModel.refreshList()
-    }
-
     private fun setupViewModel(){
         viewModel.checkList.nonNullObserver(this) { list ->
             adapter.submitList(list)
@@ -84,8 +71,18 @@ class CreateContactFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+        viewModel = ViewModelProviders
+            .of(activity!!)[CreateContactViewModel::class.java]
+
         adapter.chooseItem.nonNullObserver(this) {
             viewModel.changeChooseItem(it)
         }
+
+        val preference = MyPreference(activity!!)
+        user = preference.user()
+
+        setupViewModel()
+        viewModel.refreshList()
     }
 }
