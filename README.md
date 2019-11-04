@@ -1,8 +1,9 @@
 # HomeCheckListApp
 
 2019年度の久留米高専の文化祭にて販売した技術書の第4章の内容のリポジトリです。
+少し変更点とうがあるのでこのリポジトリのソースコードを読む前に以下に書いている追記を読んでからコソースコードを読むようにしてください。
 
-##〜追記〜
+## 〜追記〜
 
 `CheckListRepository`と`CheckListUseCas`eを可読性の観点からこのリポジトリでは`CheckRepository`と`CheckUseCase`に変更しています。
 
@@ -32,9 +33,13 @@ fun ViewModel.launchDataLoad(spinner: MutableLiveData<Boolean>, block: suspend (
 
 ViewModelのインスタンスはonActivityCreatedで作るようにしてください。
 一部のコード、本内での説明でonAttachでインスタンスを作っていますが、それは間違えです。
-
+正しい書き方は以下の通りです。
 ```
-
+override fun onActivityCreated(savedInstanceState: Bundle?) {
+    super.onActivityCreated(savedInstanceState)
+    // 代わりにsetupViewModel()がある場合があります。
+    loginViewModel = ViewModelProviders.of(activity!!)[HomeViewModel::class.java]
+}
 ```
 
 申し訳ありません。
