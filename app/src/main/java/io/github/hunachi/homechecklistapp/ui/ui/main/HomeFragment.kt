@@ -16,14 +16,13 @@ import io.github.hunachi.homechecklistapp.ui.MyPreference
 import io.github.hunachi.homechecklistapp.ui.nonNullObserver
 import io.github.hunachi.homechecklistapp.ui.ui.UsersListAdapter
 import io.github.hunachi.homechecklistapp.ui.ui.checklist.CheckListAdapter
-import org.koin.android.ext.android.inject
 
 /**
  * Home screen fragment
  */
 class HomeFragment : Fragment(R.layout.fragment_home) {
 
-    private val preference: MyPreference by inject()
+    private lateinit var preference: MyPreference
 
     private val checkListAdapter = CheckListAdapter(false)
     private val userListAdapter = UsersListAdapter()
@@ -46,24 +45,23 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         }
         swipeRefreshLayout = findViewById<SwipeRefreshLayout>(R.id.layout_swipe).also {
             it.setOnRefreshListener {
-                homeViewModel.updateChecklist()
-                homeViewModel.updateUsersList()
+                homeViewModel.refreshChecklist()
+                homeViewModel.refreshUsersList()
             }
         }
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
+        preference = MyPreference(activity!!.application)
         homeViewModel = ViewModelProviders
             .of(activity!!)[HomeViewModel::class.java]
+        setupViewModel()
+        homeViewModel.refreshChecklist()
+        homeViewModel.refreshUsersList()
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        if(preference.id().isNullOrEmpty()){
-            findNavController().navigate(R.id.action_homeFragment_to_loginActivity)
-        }
-
+    private fun setupViewModel(){
         homeViewModel.checkList.nonNullObserver(this){
             checkListAdapter.submitList(it)
         }
@@ -75,8 +73,12 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         homeViewModel.spinner.nonNullObserver(this){
             swipeRefreshLayout.isRefreshing = it
         }
+    }
 
-        homeViewModel.updateChecklist()
-        homeViewModel.updateUsersList()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        if(preference.id().isNullOrEmpty()){
+            findNavController().navigate(R.id.action_homeFragment_to_loginActivity)
+        }
     }
 }
