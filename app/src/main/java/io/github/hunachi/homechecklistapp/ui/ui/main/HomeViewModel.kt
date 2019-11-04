@@ -6,14 +6,14 @@ import androidx.lifecycle.ViewModel
 import io.github.hunachi.homechecklistapp.ui.data.CheckItem
 import io.github.hunachi.homechecklistapp.ui.data.CheckListItem
 import io.github.hunachi.homechecklistapp.ui.data.User
-import io.github.hunachi.homechecklistapp.ui.infra.CheckListUseCase
+import io.github.hunachi.homechecklistapp.ui.infra.CheckUseCase
 import io.github.hunachi.homechecklistapp.ui.infra.UserUseCase
 import io.github.hunachi.homechecklistapp.ui.launchDataLoad
 
 class HomeViewModel: ViewModel() {
 
     private val userUseCase = UserUseCase()
-    private val checkListUseCase = CheckListUseCase()
+    private val checkListUseCase = CheckUseCase()
 
     private val modifiableCheckList:
             MutableLiveData<List<CheckListItem>> = MutableLiveData()
@@ -34,7 +34,7 @@ class HomeViewModel: ViewModel() {
     private val modifiableSpinner: MutableLiveData<Boolean> = MutableLiveData()
     val spinner: LiveData<Boolean> = modifiableSpinner
 
-    fun updateChecklist(){
+    fun refreshChecklist(){
         try {
             launchDataLoad(modifiableSpinner){
                 val list = checkListUseCase.checkList()
@@ -47,7 +47,7 @@ class HomeViewModel: ViewModel() {
         }
     }
 
-    fun updateUsersList(){
+    fun refreshUsersList(){
         try {
             launchDataLoad(modifiableSpinner){
                 val list = userUseCase.users()

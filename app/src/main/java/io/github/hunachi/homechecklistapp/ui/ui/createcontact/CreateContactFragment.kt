@@ -18,6 +18,9 @@ import io.github.hunachi.homechecklistapp.ui.nonNullObserver
 import io.github.hunachi.homechecklistapp.ui.toast
 import io.github.hunachi.homechecklistapp.ui.ui.checklist.CheckListAdapter
 
+/*
+*  明日用のContactデータを作るためのFragment。
+* */
 class CreateContactFragment : Fragment() {
 
     private lateinit var viewModel: CreateContactViewModel
@@ -58,13 +61,12 @@ class CreateContactFragment : Fragment() {
 
         val preference = MyPreference(activity!!)
         user = preference.user()
+
+        setupViewModel()
+        viewModel.refreshList()
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        adapter.chooseItem.nonNullObserver(this) {
-            viewModel.changeChooseItem(it)
-        }
+    private fun setupViewModel(){
         viewModel.checkList.nonNullObserver(this) { list ->
             adapter.submitList(list)
         }
@@ -78,6 +80,12 @@ class CreateContactFragment : Fragment() {
         viewModel.spinner.nonNullObserver(this){
             registerButton.isEnabled = !it
         }
-        viewModel.refreshList()
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        adapter.chooseItem.nonNullObserver(this) {
+            viewModel.changeChooseItem(it)
+        }
     }
 }

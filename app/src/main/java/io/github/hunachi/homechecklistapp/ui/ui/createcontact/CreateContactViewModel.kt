@@ -1,19 +1,18 @@
 package io.github.hunachi.homechecklistapp.ui.ui.createcontact
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import io.github.hunachi.homechecklistapp.ui.data.*
-import io.github.hunachi.homechecklistapp.ui.infra.CheckListUseCase
+import io.github.hunachi.homechecklistapp.ui.infra.CheckUseCase
 import io.github.hunachi.homechecklistapp.ui.infra.ContactUseCase
 import io.github.hunachi.homechecklistapp.ui.launchDataLoad
 import kotlinx.coroutines.launch
 
 class CreateContactViewModel : ViewModel() {
 
-    private val checkListUseCase = CheckListUseCase()
+    private val checkListUseCase = CheckUseCase()
     private val contactUseCase = ContactUseCase()
 
     private val modifiableCheckList:
@@ -76,7 +75,6 @@ class CreateContactViewModel : ViewModel() {
         )
         try {
             launchDataLoad(modifiableSpinner){
-                Log.d("piyo", "hoge")
                 val data = contactUseCase.sendContact(contactData)
                 modifiableSuccessSend.value = data
             }

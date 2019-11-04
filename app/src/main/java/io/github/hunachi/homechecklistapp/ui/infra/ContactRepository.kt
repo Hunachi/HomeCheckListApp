@@ -1,9 +1,11 @@
 package io.github.hunachi.homechecklistapp.ui.infra
 
+import android.icu.util.Calendar
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import io.github.hunachi.homechecklistapp.ui.data.ContactData
 import io.github.hunachi.homechecklistapp.ui.data.SendContainData
+import kotlinx.coroutines.coroutineScope
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
@@ -43,6 +45,7 @@ class ContactRepository {
                 val checkList: List<ContactData> = if (result.documents.isNullOrEmpty()) listOf()
                 else result.documents.map {
                     ContactData().apply {
+                        id = it.id
                         it.data?.forEach {
                             when (it.key) {
                                 KEY_CHECK_ID -> checkItemId = it.value.toString()
@@ -57,6 +60,18 @@ class ContactRepository {
             }
             .addOnFailureListener { exception ->
                 crossinLine.resumeWithException(exception)
+            }
+    }
+
+    suspend fun todayContact() = coroutineScope {
+        val todayStart = Calendar.getInstance()
+        todayStart.set(Calendar.MILLISECONDS_IN_DAY, 0)
+        val todayEnd = Calendar.getInstance()
+        todayEnd.set(Calendar.MILLISECONDS_IN_DAY, 0)
+        todayEnd.set(Calendar.DAY_OF_YEAR, todayEnd.get(Calendar.DAY_OF_YEAR) + 1)
+        contacts()
+            .filter {
+                it.dateMili >= todayStart.timeInMillis && it.dateMili <= todayEnd.timeInMillis
             }
     }
 

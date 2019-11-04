@@ -7,7 +7,10 @@ import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
 
-class CheckListRepository {
+/*
+* CheckListRepositoryからCheckRepositoryに名前を変更しました。
+* */
+class CheckRepository {
 
     private val checkListCollection: CollectionReference by lazy {
         FirebaseFirestore.getInstance().collection(KEY_CHECKLIST)
@@ -27,6 +30,20 @@ class CheckListRepository {
             }
             .addOnFailureListener { exception ->
                 crossinLine.resumeWithException(exception)
+            }
+    }
+
+    suspend fun check(id: String): CheckItem = suspendCoroutine { continuation ->
+        checkListCollection
+            .document(id)
+            .get()
+            .addOnSuccessListener{
+                val context =
+                    it.data?.filter { it.key == KEY_CONTENT }?.toList()?.first()?.second
+                continuation.resume(CheckItem(it.id, context as String))
+            }
+            .addOnFailureListener {
+                continuation.resumeWithException(it)
             }
     }
 

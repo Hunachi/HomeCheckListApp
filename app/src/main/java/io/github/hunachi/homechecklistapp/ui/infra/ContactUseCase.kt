@@ -16,9 +16,13 @@ class ContactUseCase {
         return@withContext contactRepository.contacts()
     }
 
+    suspend fun todayContact() = withContext(Dispatchers.IO) {
+        return@withContext contactRepository.todayContact()
+    }
+
     private fun defaultData(): Long {
         val calendar = Calendar.getInstance()
         calendar.set(Calendar.DAY_OF_YEAR, calendar.get(Calendar.DAY_OF_YEAR) + 1)
-        return calendar.get(Calendar.MILLISECOND).toLong()
+        return calendar.timeInMillis
     }
 }
