@@ -37,7 +37,7 @@ ViewModelのインスタンスはonActivityCreatedで作るようにしてくだ
 override fun onActivityCreated(savedInstanceState: Bundle?) {
     super.onActivityCreated(savedInstanceState)
     // 代わりにsetupViewModel()がある場合があります。
-    loginViewModel = ViewModelProviders.of(activity!!)[HomeViewModel::class.java]
+    homeViewModel = ViewModelProviders.of(activity!!)[HomeViewModel::class.java]
 }
 ```
 
