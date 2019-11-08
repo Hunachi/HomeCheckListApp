@@ -23,7 +23,6 @@ fun ViewModel.launchDataLoad(spinner: MutableLiveData<Boolean>, block: suspend (
             spinner.value = false
         }
     }
- }
 }
 ```
 このコードはGoogle（本家）で使われている拡張関数でもあるので実装方法と使い方を知っておくととても便利です。
