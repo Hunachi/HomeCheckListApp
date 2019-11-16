@@ -4,8 +4,16 @@
 
 〜追記〜
 
-`CheckListRepository`と`CheckListUseCas`eを可読性の観点から`CheckRepository`と`CheckUseCase`に変更しました。
+`CheckListRepository`と`CheckListUseCas`eを可読性（読みやすさ）の点から`CheckRepository`と`CheckUseCase`に変更しました。
 
+
+このコードでは本で説明していない拡張関数
+
+```
+
+
+
+```
 
 誤植、誤ったコードについて
 

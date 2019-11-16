@@ -12,6 +12,9 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.channelFlow
 import kotlinx.coroutines.launch
 
+
+// viewModelScopeというViewModelの寿命と同じJobを立ち上げます。
+// 非同期処理開始時にspinnerがtrueに非同期処理終了時にspinnerがfalseになります。
 fun ViewModel.launchDataLoad(spinner: MutableLiveData<Boolean>, block: suspend () -> Unit): Job {
     return viewModelScope.launch {
         try {

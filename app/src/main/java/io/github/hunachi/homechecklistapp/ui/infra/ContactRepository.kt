@@ -64,11 +64,13 @@ class ContactRepository {
     }
 
     suspend fun todayContact() = coroutineScope {
+        // 前日の6時以降〜
         val todayStart = Calendar.getInstance()
-        todayStart.set(Calendar.MILLISECONDS_IN_DAY, 0)
+        todayStart.set(Calendar.DAY_OF_YEAR, todayStart.get(Calendar.DAY_OF_YEAR) - 1)
+        todayStart.set(Calendar.HOUR_OF_DAY, 6)
+        // 当日の21時までの登録された予定（その日使う予定のみ）を持ってくる。
         val todayEnd = Calendar.getInstance()
-        todayEnd.set(Calendar.MILLISECONDS_IN_DAY, 0)
-        todayEnd.set(Calendar.DAY_OF_YEAR, todayEnd.get(Calendar.DAY_OF_YEAR) + 1)
+        todayEnd.set(Calendar.HOUR_OF_DAY, 21)
         contacts()
             .filter {
                 it.dateMili >= todayStart.timeInMillis && it.dateMili <= todayEnd.timeInMillis

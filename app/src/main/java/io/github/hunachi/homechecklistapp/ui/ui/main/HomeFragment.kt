@@ -13,7 +13,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import io.github.hunachi.homechecklistapp.R
 import io.github.hunachi.homechecklistapp.ui.MyPreference
 import io.github.hunachi.homechecklistapp.ui.nonNullObserver
-import io.github.hunachi.homechecklistapp.ui.ui.UsersListAdapter
+import io.github.hunachi.homechecklistapp.ui.ui.user.UsersListAdapter
 import io.github.hunachi.homechecklistapp.ui.ui.checklist.CheckListAdapter
 
 /**

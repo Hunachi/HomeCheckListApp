@@ -14,7 +14,7 @@ import io.github.hunachi.homechecklistapp.ui.data.ContactData
 import io.github.hunachi.homechecklistapp.ui.data.ContactItem
 import io.github.hunachi.homechecklistapp.ui.nonNullObserver
 import io.github.hunachi.homechecklistapp.ui.toast
-import io.github.hunachi.homechecklistapp.ui.ui.ContactListAdapter
+import io.github.hunachi.homechecklistapp.ui.ui.contact.ContactListAdapter
 
 /*
 *  昨日登録されたContactデータを表示するFragment。

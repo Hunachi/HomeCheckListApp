@@ -22,7 +22,6 @@ class ContactUseCase {
 
     private fun defaultData(): Long {
         val calendar = Calendar.getInstance()
-        calendar.set(Calendar.DAY_OF_YEAR, calendar.get(Calendar.DAY_OF_YEAR) + 1)
         return calendar.timeInMillis
     }
 }
