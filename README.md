@@ -5,6 +5,8 @@
 
 ## 〜追記〜
 
+連絡リストに表示させる連絡の時間設定などが適当になっているため自分で調節してください！
+
 `CheckListRepository`と`CheckListUseCas`eを可読性の観点からこのリポジトリでは`CheckRepository`と`CheckUseCase`に変更しています。
 
 本では説明していない拡張関数↓を使っています。気をつけてください！！
